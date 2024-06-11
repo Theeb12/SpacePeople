@@ -22,15 +22,16 @@ public class cameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inY = Input.GetAxis("Mouse X") * mouseSens; // * mouseSens * Time.deltaTime;
-        inX = -Input.GetAxis("Mouse Y") * mouseSens; // * mouseSens * Time.deltaTime;
+        inY += Input.GetAxis("Mouse Y") * mouseSens; // * mouseSens * Time.deltaTime;
+        inY = Mathf.Clamp(inY, -90, 90);
 
-        transform.Rotate(new Vector3(inX, inY, 0), Space.World);
-        if (Input.GetKey("w"))
-        {
-            player.transform.Translate(transform.forward * Time.deltaTime * movementSpeed);
+        transform.localRotation = Quaternion.Euler(-inY, 0, 0);
+        //Quaternion yQuat = Quaternion.AngleAxis(inY, Vector3.up);
 
-        }
+        //Debug.Log(transform.rotation.x);
+        //transform.Rotate(new Vector3(-inY, 0, 0), Space.Self);
+
+        
         //transform.Rotate(new Vector3(1, 0, 0));
     }
 }
