@@ -24,11 +24,11 @@ public class bodyMove: MonoBehaviour
         direction = new Vector3(0, transform.position.y, transform.position.z);
         rb.AddForce(direction * gravScale);
 
-        if (Input.GetKey("w"))
+        /*if (Input.GetKey("w"))
         {
-
-        }
+            transform.Translate(transform.)
+        }*/
         if (Input.GetKeyDown("space"))
-            rb.AddForce(transform.up * jumpForce);
+            rb.AddForce(transform.forward * jumpForce);
     }
 }
