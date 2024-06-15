@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5954613398876643857}
   - component: {fileID: 3833678049755946363}
   - component: {fileID: -5445247564931273530}
+  - component: {fileID: 7349170727965024958}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GlobalObjectIdHash: 642034493
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 3232036128
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -145,13 +146,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSens: 2
-  gravScale: 10
-  movementSpeed: 2000
-  jumpForce: 40
+  gravScale: 100
+  movementSpeed: 3000
+  jumpForce: 500
   groundDrag: 5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 8
+  cameraHolder: {fileID: 5473333982085299649}
 --- !u!54 &3833678049755946363
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -186,7 +188,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2361191606162167297}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
@@ -210,6 +212,18 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &7349170727965024958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2361191606162167297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110b0c3c24bf44d3ea55a4b6d9b092bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4384325577869797325
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,7 +236,6 @@ GameObject:
   - component: {fileID: 2803854598404319545}
   - component: {fileID: 6759891535596839627}
   - component: {fileID: 3438971354965524245}
-  - component: {fileID: 4014787061605347976}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -318,26 +331,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4014787061605347976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4384325577869797325}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe1caaac5bd687459aae365cc975bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSens: 0
-  gravScale: -1
-  movementSpeed: 0
-  jumpForce: 5
-  groundDrag: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &5473333982085299649
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1973628016591399962
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +439,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSens: 1
-  player: {fileID: 2361191606162167297}
   movementSpeed: 10
 --- !u!114 &5265571903867214679
 MonoBehaviour:
