@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7121274680002909650}
   - component: {fileID: 4752195346902152223}
   - component: {fileID: 2287413555979071650}
+  - component: {fileID: 2938899790609693867}
   - component: {fileID: 5954613398876643857}
   - component: {fileID: 3833678049755946363}
-  - component: {fileID: 2938899790609693867}
   - component: {fileID: -5445247564931273530}
   m_Layer: 0
   m_Name: Player
@@ -36,8 +36,8 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1973628016591399962}
   - {fileID: 3937864017632616013}
+  - {fileID: 1973628016591399962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7121274680002909650
@@ -111,6 +111,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2938899790609693867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2361191606162167297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 642034493
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &5954613398876643857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,8 +146,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSens: 2
   gravScale: 10
-  movementSpeed: 3000
-  jumpForce: 100
+  movementSpeed: 2000
+  jumpForce: 40
   groundDrag: 5
   whatIsGround:
     serializedVersion: 2
@@ -158,27 +179,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &2938899790609693867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2361191606162167297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3232036128
-  InScenePlacedSourceGlobalObjectIdHash: 0
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &-5445247564931273530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +350,7 @@ GameObject:
   - component: {fileID: 947214515514187845}
   - component: {fileID: 6149063180672412270}
   - component: {fileID: 2133714808675316398}
+  - component: {fileID: 5265571903867214679}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -366,10 +367,11 @@ Transform:
   m_GameObject: {fileID: 5473333982085299649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.73, z: 0}
+  m_LocalPosition: {x: 0, y: 1.37, z: 0}
   m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5107592235245953813}
   m_Father: {fileID: 8212917461788962956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &947214515514187845
@@ -446,3 +448,52 @@ MonoBehaviour:
   mouseSens: 1
   player: {fileID: 2361191606162167297}
   movementSpeed: 10
+--- !u!114 &5265571903867214679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473333982085299649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 827202cf14f89e444a57fa1ce70d1a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupDist: 5
+  pickUp:
+    serializedVersion: 2
+    m_Bits: 64
+  holdArea: {fileID: 5107592235245953813}
+  throwStrength: 150
+--- !u!1 &9184119608631235627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5107592235245953813}
+  m_Layer: 0
+  m_Name: pickupArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5107592235245953813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9184119608631235627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.49, y: -0.6, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1973628016591399962}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class gravity : MonoBehaviour
 {
-    public float gravScale = 10f;
+    float gravScale = 10f;
+    public bool useGrav = true;
     Rigidbody rb;
     Vector3 direction;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        gravScale = rb.mass * 2;
+        gravScale = rb.mass * 3;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
-        direction = new Vector3(0, transform.position.y, transform.position.z);
-        rb.AddForce(direction * gravScale);
+        if (useGrav)
+        {
+            direction = new Vector3(0, transform.position.y, transform.position.z);
+            rb.AddForce(direction * gravScale);
+        }
     }
 }
