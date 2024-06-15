@@ -34,24 +34,24 @@ public class testDummy : NetworkBehaviour {
     void Update() {
         if (!IsOwner) return; // only control player object
         canJump = Physics.Raycast(transform.position, -transform.up, 2.75f * 0.5f + 0.01f, whatIsGround);
-        
-        // rotate whole object with x mouse axis
-        inX += Input.GetAxis("Mouse X") * mouseSens;
-        Quaternion xQuat = Quaternion.AngleAxis(inX, Vector3.up);
 
-        // rotate object to match ground normal
+
+        h = Input.GetAxisRaw("Horizontal");
+        v = Input.GetAxisRaw("Vertical");
+
+        inX += Input.GetAxis("Mouse X") * mouseSens;
+    }
+    private void FixedUpdate()
+    {
+        if (!IsOwner) return;
+        // rotate object x axis with mouse and rotate object to match ground normal
+        Quaternion xQuat = Quaternion.AngleAxis(inX, Vector3.up);
         RaycastHit[] hits;
         hits = Physics.RaycastAll(transform.position, -transform.up, 50.0f, whatIsGround);
         for(int i = 0; i < hits.Length; i++) {
             transform.rotation = Quaternion.FromToRotation(Vector3.up, hits[i].normal) * xQuat;
         }
-    }
-    private void FixedUpdate()
-    {
-        if (!IsOwner) return;
         // movement, add drag if we're in the air so we can't fly
-        h = Input.GetAxisRaw("Horizontal");
-        v = Input.GetAxisRaw("Vertical");
         Vector3 move = transform.forward * v + transform.right * h;
         float airDrag = canJump ? 1 : 0.2f;
         rb.AddForce(move.normalized * movementSpeed * airDrag, ForceMode.Force);
@@ -71,5 +71,7 @@ public class testDummy : NetworkBehaviour {
         // gravity
         direction = new Vector3(0, transform.position.y, transform.position.z);
         rb.AddForce(direction * gravScale);
+        
+        
     }
 }
