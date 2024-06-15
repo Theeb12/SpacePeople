@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class cameraMovement : MonoBehaviour
+public class cameraMovement : NetworkBehaviour 
 {
     public float mouseSens = 2.0f;
     float cameraVert;
@@ -16,12 +17,13 @@ public class cameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
         inY += Input.GetAxis("Mouse Y") * mouseSens; // * mouseSens * Time.deltaTime;
         inY = Mathf.Clamp(inY, -90, 90);
 

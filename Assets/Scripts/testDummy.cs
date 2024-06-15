@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class testDummy : MonoBehaviour
+public class testDummy : NetworkBehaviour
 {
     bool canJump;
     public float mouseSens;
@@ -25,12 +26,14 @@ public class testDummy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!IsOwner) return;
         canJump = Physics.Raycast(transform.position, -transform.up, 2.75f * 0.5f + 0.2f, whatIsGround);
         inX += Input.GetAxis("Mouse X") * mouseSens;
         Quaternion xQuat = Quaternion.AngleAxis(inX, Vector3.up);
@@ -73,6 +76,7 @@ public class testDummy : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!IsOwner) return;
         if (canJump)
         {
             Vector3 move = transform.forward * v + transform.right * h;
