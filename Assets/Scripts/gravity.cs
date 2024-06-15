@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class gravity : MonoBehaviour
 {
-    float gravScale = 10f;
+    public float gravScale = 10f;
     Rigidbody rb;
     Vector3 direction;
     // Start is called before the first frame update
