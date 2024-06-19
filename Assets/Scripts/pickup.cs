@@ -31,7 +31,7 @@ public class pickup : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp))
         {
-            Debug.Log(hit.transform.gameObject.name);
+            //Debug.Log(hit.transform.gameObject.name);
             if (Input.GetKeyDown("e") && !isHolding)
             {
                 isHolding = true;
@@ -39,7 +39,7 @@ public class pickup : NetworkBehaviour
                 heldGrav = hit.transform.gameObject.GetComponent<gravity>();
                 heldGrav.useGrav = false;
                 heldObjRb.constraints = RigidbodyConstraints.FreezeRotation;
-                heldObjRb.transform.parent = holdArea;
+                // heldObjRb.transform.parent = holdArea;
                 heldObj = hit.transform.gameObject;
                 heldObjRb.drag = 10f;
                 //heldObjRb.isKinematic = true;
@@ -61,7 +61,7 @@ public class pickup : NetworkBehaviour
             isThrowing = false;
             isHolding = false;
             //heldObjRb.useGravity = true;
-            heldObjRb.transform.parent = null;
+            // heldObjRb.transform.parent = null;
             heldObjRb.constraints = RigidbodyConstraints.None;
             heldObjRb.AddForce(transform.forward * throwStrength * throwTimer, ForceMode.Impulse);
             throwTimer = 0;
