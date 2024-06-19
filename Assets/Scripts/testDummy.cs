@@ -33,24 +33,30 @@ public class testDummy : NetworkBehaviour {
     // Update is called once per frame
     void Update() {
         if (!IsOwner) return; // only control player object
-        canJump = Physics.Raycast(transform.position, -transform.up, 2.75f * 0.5f + 0.01f, whatIsGround);
 
+        canJump = Physics.Raycast(transform.position, -transform.up, 3f * 0.5f + 0.01f, whatIsGround);
+
+        Debug.Log(canJump);
 
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
 
         inX += Input.GetAxis("Mouse X") * mouseSens;
-    }
-    private void FixedUpdate()
-    {
-        if (!IsOwner) return;
+
         // rotate object x axis with mouse and rotate object to match ground normal
         Quaternion xQuat = Quaternion.AngleAxis(inX, Vector3.up);
         RaycastHit[] hits;
         hits = Physics.RaycastAll(transform.position, -transform.up, 50.0f, whatIsGround);
-        for(int i = 0; i < hits.Length; i++) {
+        for (int i = 0; i < hits.Length; i++)
+        {
             transform.rotation = Quaternion.FromToRotation(Vector3.up, hits[i].normal) * xQuat;
         }
+
+    }
+    private void FixedUpdate()
+    {
+        if (!IsOwner) return;
+        
         // movement, add drag if we're in the air so we can't fly
         Vector3 move = transform.forward * v + transform.right * h;
         float airDrag = canJump ? 1 : 0.2f;

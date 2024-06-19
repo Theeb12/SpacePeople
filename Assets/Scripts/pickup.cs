@@ -26,12 +26,12 @@ public class pickup : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!IsOwner) return;
+        //if (!IsOwner) return;
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp))
         {
-            //Debug.Log(hit.transform.gameObject.name);
+            Debug.Log(hit.transform.gameObject.name);
             if (Input.GetKeyDown("e") && !isHolding)
             {
                 isHolding = true;

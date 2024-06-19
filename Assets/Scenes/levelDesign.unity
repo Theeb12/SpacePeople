@@ -1970,9 +1970,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc19d1af11b8464ea50344bcd94d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverButton: {fileID: 1426219135}
   clientButton: {fileID: 985698397}
   hostButton: {fileID: 1868288722}
+  joinCodeInputField: {fileID: 0}
+  joinCodeButton: {fileID: 0}
 --- !u!1 &1426219133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,7 +2260,7 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 1698039205}
-    PlayerPrefab: {fileID: 2361191606162167297, guid: ee4f9e672a70a4911a4916d21d13e494, type: 3}
+    PlayerPrefab: {fileID: 931405528961782685, guid: b5f4750421cb8fa478d91f57d2532ee9, type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: cadd490ab69d745d689ff5aa6a900d0f, type: 2}
