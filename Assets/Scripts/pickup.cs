@@ -49,7 +49,6 @@ public class pickup : NetworkBehaviour
         if (isThrowing && throwTimer <= 1.5f)
         {
             throwTimer += Time.deltaTime;
-            Debug.Log(throwTimer);
         }
         if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing)
         {
