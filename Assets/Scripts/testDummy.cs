@@ -36,7 +36,6 @@ public class testDummy : NetworkBehaviour {
 
         canJump = Physics.Raycast(transform.position, -transform.up, 3f * 0.5f + 0.01f, whatIsGround);
 
-        Debug.Log(canJump);
 
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
