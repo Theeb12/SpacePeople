@@ -19,18 +19,18 @@ public class pickup : NetworkBehaviour
     [SerializeField] Transform holdArea;
     public float throwStrength;
 
-    [SerializeField] NetworkObject player;
+    [SerializeField] GameObject camera;
 
 
 
     // Update is called once per frame
     void Update() {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp)) {
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
-                Debug.Log(player.NetworkObjectId);
-                Debug.Log(hit.transform.gameObject.GetComponent<NetworkObject>());
-                PickupCubeServerRpc();//hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId, player.NetworkObjectId);
+                // Debug.Log(NetworkObjectId);
+                // Debug.Log(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
+                PickupCubeServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId, NetworkObjectId);
                 Debug.Log("hi");
                 // heldObjRb = heldObj.GetComponent<Rigidbody>();
                 // heldGrav = heldObj.GetComponent<gravity>();
@@ -67,14 +67,11 @@ public class pickup : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void PickupCubeServerRpc(){//ulong cubeID, ulong playerID) {
-        Debug.Log(OwnerClientId);
-        //Debug.Log(cubeID);
-        //Debug.Log(playerID);
-
-       // NetworkObject cube = NetworkManager.SpawnManager.SpawnedObjects[cubeID];
-       // NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
-       // cube.TrySetParent(player);
+    private void PickupCubeServerRpc(ulong cubeID, ulong playerID) {
+        NetworkObject cube = NetworkManager.SpawnManager.SpawnedObjects[cubeID];
+        NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
+        cube.TrySetParent(player);
+        cube.GetComponent<FollowHand>().held = true;
     }
 
     [ClientRpc]
