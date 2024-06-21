@@ -25,13 +25,13 @@ public class pickup : NetworkBehaviour
 
     // Update is called once per frame
     void Update() {
+        if(!IsOwner) return;
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
                 // Debug.Log(NetworkObjectId);
                 // Debug.Log(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
                 PickupCubeServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId, NetworkObjectId);
-                Debug.Log("hi");
                 // heldObjRb = heldObj.GetComponent<Rigidbody>();
                 // heldGrav = heldObj.GetComponent<gravity>();
                 // heldGrav.useGrav = false;
@@ -71,11 +71,10 @@ public class pickup : NetworkBehaviour
         NetworkObject cube = NetworkManager.SpawnManager.SpawnedObjects[cubeID];
         NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
         cube.TrySetParent(player);
-        cube.GetComponent<FollowHand>().held = true;
     }
 
     [ClientRpc]
-    private void PickupCubeClientRpc(ulong targetPlayerObjId){
-       // Transform playerHand = GetNetworkObject(targetPlayerObjId).GetComponent<MainCamera>().pickupArea;
+    private void PickupCubeClientRpc(ulong cubeID){
+        
     }
 }

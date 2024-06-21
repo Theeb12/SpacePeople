@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5634295731332450367}
   - component: {fileID: 4352607561545388521}
   - component: {fileID: 3614953829585712494}
-  - component: {fileID: 1116384999476457915}
   - component: {fileID: 3141229168280863429}
+  - component: {fileID: 1526462730990416869}
   m_Layer: 6
   m_Name: throwCube
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &1116384999476457915
+--- !u!114 &3141229168280863429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,7 +180,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4167951212815366057}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 110b0c3c24bf44d3ea55a4b6d9b092bf, type: 3}
+  m_Script: {fileID: 11500000, guid: ea8127281a7ac419fb41b3847c544619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  held: 0
+--- !u!114 &1526462730990416869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167951212815366057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UseUnreliableDeltas: 0
@@ -202,16 +215,3 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &3141229168280863429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4167951212815366057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8127281a7ac419fb41b3847c544619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  held: 0
