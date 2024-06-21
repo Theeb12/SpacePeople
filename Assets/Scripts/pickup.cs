@@ -29,11 +29,8 @@ public class pickup : NetworkBehaviour
         //if (!IsOwner) return;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp))
-        {
-            //Debug.Log(hit.transform.gameObject.name);
-            if (Input.GetKeyDown("e") && !isHolding)
-            {
+        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp)) {
+            if (Input.GetKeyDown("e") && !isHolding) {
                 isHolding = true;
                 heldObjRb = hit.transform.gameObject.GetComponent<Rigidbody>();
                 heldGrav = hit.transform.gameObject.GetComponent<gravity>();

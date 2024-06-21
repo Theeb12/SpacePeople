@@ -24,8 +24,12 @@ public class NewBehaviourScript : MonoBehaviour
     void Start() {
         clientButton.onClick.AddListener(() => {
             joinCodeInputField.gameObject.SetActive(true);
+            joinCodeInputField.Select();
+            joinCodeInputField.ActivateInputField();
+
             joinCodeButton.gameObject.SetActive(true);
             clientButton.gameObject.SetActive(false);
+
             joinCodeButton.onClick.AddListener(async () => {
                 await UnityServices.InitializeAsync();
                 if (!AuthenticationService.Instance.IsSignedIn){
@@ -35,6 +39,8 @@ public class NewBehaviourScript : MonoBehaviour
                 var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCodeInputField.text.ToString());
                 NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
                 NetworkManager.Singleton.StartClient();
+                joinCodeButton.gameObject.SetActive(false);
+                joinCodeInputField.gameObject.SetActive(false);
             });
         });
         hostButton.onClick.AddListener(async () =>
@@ -47,7 +53,12 @@ public class NewBehaviourScript : MonoBehaviour
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(allocation, "dtls"));
             var joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             var code = NetworkManager.Singleton.StartHost() ? joinCode : null;
+            clientButton.gameObject.SetActive(false);
+            joinCodeButton.gameObject.SetActive(false);
+            joinCodeInputField.gameObject.SetActive(false);
+            hostButton.gameObject.SetActive(false);
             Debug.Log(code);
+
         });
     }
 }
