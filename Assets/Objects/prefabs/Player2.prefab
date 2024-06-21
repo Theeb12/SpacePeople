@@ -462,6 +462,7 @@ MonoBehaviour:
   holdArea: {fileID: 5395769211112652585}
   throwStrength: 150
   cube: {fileID: 0}
+  player: {fileID: 1014692328006028220}
 --- !u!114 &390252900340149970
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class pickup : NetworkBehaviour
@@ -17,7 +19,7 @@ public class pickup : NetworkBehaviour
     [SerializeField] Transform holdArea;
     public float throwStrength;
 
-    [SerializeField] GameObject cube;
+    [SerializeField] NetworkObject player;
 
 
 
@@ -26,38 +28,57 @@ public class pickup : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
-                heldObj = Instantiate(cube, holdArea);
-                heldObjRb = heldObj.GetComponent<Rigidbody>();
-                heldGrav = heldObj.GetComponent<gravity>();
-                heldGrav.useGrav = false;
-                sameFrame=true;
-                heldObjRb.isKinematic = true;
+                Debug.Log(player.NetworkObjectId);
+                Debug.Log(hit.transform.gameObject.GetComponent<NetworkObject>());
+                PickupCubeServerRpc();//hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId, player.NetworkObjectId);
+                Debug.Log("hi");
+                // heldObjRb = heldObj.GetComponent<Rigidbody>();
+                // heldGrav = heldObj.GetComponent<gravity>();
+                // heldGrav.useGrav = false;
+                // sameFrame=true;
+                // heldObjRb.isKinematic = true;
             }
         }
-        if (isThrowing && throwTimer <= 1.5f) {
-            throwTimer += Time.deltaTime;
-        }
-        if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing) {
-            isThrowing = true;
-        }
-        if (isThrowing && Input.GetKeyUp("e")) {
-            isThrowing = false;
-            isHolding = false;
+        // if (isThrowing && throwTimer <= 1.5f) {
+        //     throwTimer += Time.deltaTime;
+        // }
+        // if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing) {
+        //     isThrowing = true;
+        // }
+        // if (isThrowing && Input.GetKeyUp("e")) {
+        //     isThrowing = false;
+        //     isHolding = false;
 
-            heldObjRb.AddForce(transform.forward * throwStrength * throwTimer, ForceMode.Impulse);
+        //     heldObjRb.AddForce(transform.forward * throwStrength * throwTimer, ForceMode.Impulse);
 
-            heldGrav.useGrav = true;
-            heldGrav = null;
-            heldObjRb.drag = 1f;
-            heldObj = null;
-            heldObjRb = null;
-            throwTimer = 0;
-        }
-        sameFrame = false;
+        //     heldGrav.useGrav = true;
+        //     heldGrav = null;
+        //     heldObjRb.drag = 1f;
+        //     heldObj = null;
+        //     heldObjRb = null;
+        //     throwTimer = 0;
+        // }
+        // sameFrame = false;
 
-        if (isHolding){
-            heldObj.transform.position = holdArea.position;
-            heldObj.transform.rotation = holdArea.rotation;
-        }
+        // if (isHolding){
+        //     heldObj.transform.position = holdArea.position;
+        //     heldObj.transform.rotation = holdArea.rotation;
+        // }
+    }
+
+    [ServerRpc]
+    private void PickupCubeServerRpc(){//ulong cubeID, ulong playerID) {
+        Debug.Log(OwnerClientId);
+        //Debug.Log(cubeID);
+        //Debug.Log(playerID);
+
+       // NetworkObject cube = NetworkManager.SpawnManager.SpawnedObjects[cubeID];
+       // NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
+       // cube.TrySetParent(player);
+    }
+
+    [ClientRpc]
+    private void PickupCubeClientRpc(ulong targetPlayerObjId){
+       // Transform playerHand = GetNetworkObject(targetPlayerObjId).GetComponent<MainCamera>().pickupArea;
     }
 }
