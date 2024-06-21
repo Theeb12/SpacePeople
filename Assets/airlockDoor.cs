@@ -5,8 +5,8 @@ using UnityEngine;
 public class airlockDoor : MonoBehaviour
 {
     public int state = 1;
-    float rotSpeed = 20f;
-
+    float rotSpeed = 50f;
+    public bool closed = true;
     void Start()
     {
         
@@ -16,6 +16,7 @@ public class airlockDoor : MonoBehaviour
     {
         if(state == -1)
         {
+            closed = false;
             openDoor();
         }
         else
@@ -36,6 +37,10 @@ public class airlockDoor : MonoBehaviour
         if(transform.rotation.y < 0.7071068f)
         {
             transform.Rotate(0, Time.deltaTime * rotSpeed, 0);
+        }
+        else
+        {
+            closed = true;
         }
     }
 }

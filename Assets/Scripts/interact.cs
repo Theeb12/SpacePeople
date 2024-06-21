@@ -8,6 +8,7 @@ public class interact : MonoBehaviour
     float pickupDist = 5.0f;
     public LayerMask pickUp;
     public LayerMask door;
+    public LayerMask button;
 
     void Start()
     {
@@ -20,10 +21,19 @@ public class interact : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, door))
         {
-            Debug.Log("dooooor");
             if (Input.GetKeyDown("e"))
             {
                 hit.transform.gameObject.GetComponent<airlockDoor>().state *= -1;
+            }
+        }
+        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist))
+        {
+            if (Input.GetKeyDown("e"))
+            {
+                if (hit.transform.gameObject.name == "EjectButton")
+                {
+                    hit.transform.gameObject.GetComponent<eject>().state = 1;
+                }
             }
         }
     }
