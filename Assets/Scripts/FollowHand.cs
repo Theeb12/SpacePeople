@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode.Components;
 using UnityEngine;
 
 public class FollowHand : MonoBehaviour
@@ -17,6 +18,7 @@ public class FollowHand : MonoBehaviour
     void Update()
     {
         if (held) {
+            transform.GetComponent<NetworkTransform>().enabled = false;
             transform.position = transform.parent.Find("Main Camera").Find("pickupArea").position;
             transform.rotation = transform.parent.Find("Main Camera").Find("pickupArea").rotation;
         }
