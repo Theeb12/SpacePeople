@@ -461,6 +461,7 @@ MonoBehaviour:
     m_Bits: 64
   holdArea: {fileID: 5395769211112652585}
   throwStrength: 150
+<<<<<<< Updated upstream
 --- !u!114 &390252900340149970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,6 +480,9 @@ MonoBehaviour:
   door:
     serializedVersion: 2
     m_Bits: 128
+=======
+  cube: {fileID: 4167951212815366057, guid: 9ae4add8bf4f448c18ed37571b7b1115, type: 3}
+>>>>>>> Stashed changes
 --- !u!1 &8774246844822103807
 GameObject:
   m_ObjectHideFlags: 0

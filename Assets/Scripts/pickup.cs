@@ -17,66 +17,47 @@ public class pickup : NetworkBehaviour
     [SerializeField] Transform holdArea;
     public float throwStrength;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject cube;
+
+
 
     // Update is called once per frame
-    void Update()
-    {
-        //if (!IsOwner) return;
-
+    void Update() {
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
-                isHolding = true;
-                heldObjRb = hit.transform.gameObject.GetComponent<Rigidbody>();
-                heldGrav = hit.transform.gameObject.GetComponent<gravity>();
+                heldObj = Instantiate(cube, holdArea);
+                heldObjRb = heldObj.GetComponent<Rigidbody>();
+                heldGrav = heldObj.GetComponent<gravity>();
                 heldGrav.useGrav = false;
-                heldObjRb.constraints = RigidbodyConstraints.FreezeRotation;
-                // heldObjRb.transform.parent = holdArea;
-                heldObj = hit.transform.gameObject;
-                heldObjRb.drag = 10f;
-                //heldObjRb.isKinematic = true;
-                sameFrame = true;
+                sameFrame=true;
+                heldObjRb.isKinematic = true;
             }
         }
-        if (isThrowing && throwTimer <= 1.5f)
-        {
+        if (isThrowing && throwTimer <= 1.5f) {
             throwTimer += Time.deltaTime;
         }
-        if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing)
-        {
+        if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing) {
             isThrowing = true;
         }
-        if (isThrowing && Input.GetKeyUp("e"))
-        {
-            //heldObjRb.isKinematic = false;
+        if (isThrowing && Input.GetKeyUp("e")) {
             isThrowing = false;
             isHolding = false;
-            //heldObjRb.useGravity = true;
-            // heldObjRb.transform.parent = null;
-            heldObjRb.constraints = RigidbodyConstraints.None;
+
             heldObjRb.AddForce(transform.forward * throwStrength * throwTimer, ForceMode.Impulse);
-            throwTimer = 0;
+
             heldGrav.useGrav = true;
             heldGrav = null;
             heldObjRb.drag = 1f;
             heldObj = null;
             heldObjRb = null;
+            throwTimer = 0;
         }
         sameFrame = false;
 
-        if (isHolding)
-        {
-            if (Vector3.Distance(heldObj.transform.position, holdArea.position) > 0.1f)
-            {
-                Vector3 moveDir = holdArea.position - heldObj.transform.position;
-                heldObjRb.AddForce(moveDir * 500.0f);
-                //transform.position = Vector3.MoveTowards(heldObj.transform.position, holdArea.position, Time.deltaTime * 2.0f);
-            }
+        if (isHolding){
+            heldObj.transform.position = holdArea.position;
+            heldObj.transform.rotation = holdArea.rotation;
         }
     }
 }
