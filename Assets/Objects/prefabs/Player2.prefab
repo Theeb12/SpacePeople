@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 5961778015927034465}
   - component: {fileID: 7847404949164536818}
   - component: {fileID: 7131789038095978764}
-  - component: {fileID: 7298221550772045314}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -148,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseSens: 2
+  gravScale: 100
   movementSpeed: 3000
   jumpForce: 500
   groundDrag: 5
@@ -213,19 +213,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7298221550772045314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931405528961782685}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6e8a5971657cfe4e9dc6df5b2e69144, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useGrav: 1
 --- !u!1 &7011952485090313265
 GameObject:
   m_ObjectHideFlags: 0

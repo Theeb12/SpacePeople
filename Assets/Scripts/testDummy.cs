@@ -7,6 +7,8 @@ public class testDummy : NetworkBehaviour {
     bool canJump;
     public float mouseSens;
     float inX;
+    Vector3 direction;
+    public float gravScale = 1;
     Rigidbody rb;
     public float movementSpeed;
     public float jumpForce = 5;
@@ -69,6 +71,12 @@ public class testDummy : NetworkBehaviour {
         // slow down if we're not pressing anything
         if (h == 0 && v == 0) {
             rb.velocity /= 1.2f;
-        }        
+        }
+
+        // gravity
+        direction = new Vector3(0, transform.position.y, transform.position.z);
+        rb.AddForce(direction * gravScale);
+        
+        
     }
 }
