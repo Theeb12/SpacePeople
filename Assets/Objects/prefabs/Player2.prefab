@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 4864989698550505988}
   - component: {fileID: 4350141127720537335}
   - component: {fileID: 2059411137532979088}
+  - component: {fileID: 390252900340149970}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -447,6 +448,24 @@ MonoBehaviour:
     m_Bits: 64
   holdArea: {fileID: 5395769211112652585}
   throwStrength: 150
+--- !u!114 &390252900340149970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404357919519796282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f005933b0d21173429f6bf492c40855d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickUp:
+    serializedVersion: 2
+    m_Bits: 64
+  door:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &8774246844822103807
 GameObject:
   m_ObjectHideFlags: 0
