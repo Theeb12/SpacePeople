@@ -5,22 +5,19 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class pickup : NetworkBehaviour
-{
+public class pickup : NetworkBehaviour{
     float throwTimer = 0f;
     public float pickupDist = 1.0f;
     public LayerMask pickUp;
     bool isHolding = false;
     bool isThrowing = false;
-    bool sameFrame = false;
-    GameObject heldObj;
-    Rigidbody heldObjRb;
-    gravity heldGrav;
     [SerializeField] Transform holdArea;
     public float throwStrength;
 
     [SerializeField] GameObject camera;
 
+    ulong targetObjectID;
+    bool isKeyReleased = true;
 
 
     // Update is called once per frame
@@ -29,52 +26,42 @@ public class pickup : NetworkBehaviour
         RaycastHit hit;
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
-                // Debug.Log(NetworkObjectId);
-                // Debug.Log(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
-                PickupCubeServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId, NetworkObjectId);
-                // heldObjRb = heldObj.GetComponent<Rigidbody>();
-                // heldGrav = heldObj.GetComponent<gravity>();
-                // heldGrav.useGrav = false;
-                // sameFrame=true;
-                // heldObjRb.isKinematic = true;
+                targetObjectID = hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+                PickupObjectServerRpc(this.NetworkObjectId, targetObjectID);
+                isHolding = true;
+                isKeyReleased = false;
             }
         }
-        // if (isThrowing && throwTimer <= 1.5f) {
-        //     throwTimer += Time.deltaTime;
-        // }
-        // if (Input.GetKeyDown("e") && isHolding && !sameFrame && !isThrowing) {
-        //     isThrowing = true;
-        // }
-        // if (isThrowing && Input.GetKeyUp("e")) {
-        //     isThrowing = false;
-        //     isHolding = false;
+        if (Input.GetKey("e") && isHolding && throwTimer <= 1.5f && isKeyReleased) {
+            throwTimer += Time.deltaTime;
+            isThrowing = true;
 
-        //     heldObjRb.AddForce(transform.forward * throwStrength * throwTimer, ForceMode.Impulse);
-
-        //     heldGrav.useGrav = true;
-        //     heldGrav = null;
-        //     heldObjRb.drag = 1f;
-        //     heldObj = null;
-        //     heldObjRb = null;
-        //     throwTimer = 0;
-        // }
-        // sameFrame = false;
-
-        // if (isHolding){
-        //     heldObj.transform.position = holdArea.position;
-        //     heldObj.transform.rotation = holdArea.rotation;
-        // }
+        }
+        if (Input.GetKeyUp("e")) {
+            isKeyReleased = true;
+            if (isHolding && isThrowing) {
+                ThrowObjectServerRpc(targetObjectID, camera.transform.forward * throwStrength * throwTimer);
+                isHolding = false;
+                isThrowing = false;
+                throwTimer = 0;
+            }
+        }
     }
 
     [ServerRpc]
-    private void PickupCubeServerRpc(ulong cubeID, ulong playerID) {
-        NetworkObject cube = NetworkManager.SpawnManager.SpawnedObjects[cubeID];
+    private void PickupObjectServerRpc(ulong playerID, ulong targetObjectID) {
+        NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
         NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
-        cube.TrySetParent(player);
+        targetObject.TrySetParent(player);
     }
 
-    [ClientRpc]
-    private void PickupCubeClientRpc(ulong cubeID){
-        
+    [ServerRpc]
+    private void ThrowObjectServerRpc(ulong targetObjectID, Vector3 throwForce) {
+        NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
+        Rigidbody objectRB = targetObject.GetComponent<Rigidbody>();
+
+        targetObject.transform.parent = null;
+        objectRB.velocity = Vector3.zero;
+        objectRB.AddForce(throwForce, ForceMode.Impulse);
     }
 }

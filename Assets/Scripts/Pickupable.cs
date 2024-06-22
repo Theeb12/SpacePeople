@@ -5,19 +5,17 @@ using Unity.Netcode.Components;
 using UnityEngine;
 
 public class FollowHand : MonoBehaviour{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    Transform prevParent = null;
     // Update is called once per frame
     void Update(){
+        bool stateChange = transform.parent != prevParent;
+        if (stateChange) {
+            transform.GetComponent<NetworkTransform>().enabled = transform.parent == null;
+        }
         if (transform.parent != null) {
-            transform.GetComponent<NetworkTransform>().enabled = false;
-            transform.GetComponent<gravity>().useGrav = false;
             transform.position = transform.parent.Find("Main Camera").Find("pickupArea").position;
             transform.rotation = transform.parent.Find("Main Camera").Find("pickupArea").rotation;
         }
+        prevParent = transform.parent;
     }
 }

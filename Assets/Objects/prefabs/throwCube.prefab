@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5634295731332450367}
   - component: {fileID: 4352607561545388521}
   - component: {fileID: 3614953829585712494}
-  - component: {fileID: 3141229168280863429}
   - component: {fileID: 1526462730990416869}
+  - component: {fileID: 1743284889105609792}
   m_Layer: 6
   m_Name: throwCube
   m_TagString: Untagged
@@ -171,19 +171,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3141229168280863429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4167951212815366057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8127281a7ac419fb41b3847c544619, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  held: 0
 --- !u!114 &1526462730990416869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,3 +202,15 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &1743284889105609792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167951212815366057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea8127281a7ac419fb41b3847c544619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
