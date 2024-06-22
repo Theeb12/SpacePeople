@@ -17,13 +17,15 @@ public class LowerBodyMovement : NetworkBehaviour
     public GameObject cameraHolder;
     [SerializeField] GameObject UpperBody;
 
+    [SerializeField] GameObject LowerBody;
+
     Vector3 upDir;
 
     // Start is called before the first frame update
     void Start()
     {
         if (!IsOwner) return;
-        rb = GetComponent<Rigidbody>();
+        rb = LowerBody.GetComponent<Rigidbody>();
 
         rb.drag = groundDrag;
         //enable camera
@@ -35,14 +37,14 @@ public class LowerBodyMovement : NetworkBehaviour
     {
         if (!IsOwner) return; // only control player object
 
-        canJump = Physics.Raycast(transform.position, -UpperBody.transform.up, 3f * 0.5f + 0.01f, whatIsGround);
+        canJump = Physics.Raycast(LowerBody.transform.position, -UpperBody.transform.up, 3f * 0.5f + 0.01f, whatIsGround);
 
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
 
         // rotate object x axis with mouse and rotate object to match ground normal
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, -UpperBody.transform.up, 50.0f, whatIsGround);
+        hits = Physics.RaycastAll(LowerBody.transform.position, -UpperBody.transform.up, 50.0f, whatIsGround);
         for (int i = 0; i < hits.Length; i++)
         {
             upDir = hits[i].normal;

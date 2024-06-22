@@ -6,6 +6,7 @@ using UnityEngine;
 public class UpperBodyMovement : NetworkBehaviour
 {
     [SerializeField] GameObject lowerBody;
+    [SerializeField] GameObject upperBody;
     float movSpeed = 30;
     float rotSpeed = 100;
     public float mouseSens;
@@ -28,16 +29,16 @@ public class UpperBodyMovement : NetworkBehaviour
         h = Input.GetAxisRaw("Horizontal");
         inX += Input.GetAxis("Mouse X") * mouseSens;
 
-        Vector3 target = lowerBody.transform.position + transform.up;
-        transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * movSpeed);
+        Vector3 target = lowerBody.transform.position + upperBody.transform.up;
+        upperBody.transform.position = Vector3.MoveTowards(upperBody.transform.position, target, Time.deltaTime * movSpeed);
 
 
         Quaternion xQuat = Quaternion.AngleAxis(inX, Vector3.up);
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, -transform.up, 50.0f, whatIsGround);
+        hits = Physics.RaycastAll(upperBody.transform.position, -upperBody.transform.up, 50.0f, whatIsGround);
         for (int i = 0; i < hits.Length; i++)
         {
-            transform.rotation = Quaternion.FromToRotation(Vector3.up, hits[i].normal) * xQuat;
+            upperBody.transform.rotation = Quaternion.FromToRotation(Vector3.up, hits[i].normal) * xQuat;
         }
     }
 }

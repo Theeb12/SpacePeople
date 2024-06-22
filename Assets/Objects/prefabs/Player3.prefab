@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4957945918819889876}
   - component: {fileID: 2414218444660000690}
   - component: {fileID: 5841231167419629032}
-  - component: {fileID: 1285054974242730072}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -109,27 +108,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSens: 1
   movementSpeed: 10
---- !u!114 &1285054974242730072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 707074864941013038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 127720944
-  InScenePlacedSourceGlobalObjectIdHash: 3539527317
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &1737101191737768476
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +121,8 @@ GameObject:
   - component: {fileID: 7564430057306582237}
   - component: {fileID: 8862507418032931926}
   - component: {fileID: 1058157571917226908}
+  - component: {fileID: 1809348148876385449}
+  - component: {fileID: 6887171956202539909}
   m_Layer: 0
   m_Name: Player3
   m_TagString: Untagged
@@ -165,6 +145,7 @@ Transform:
   m_Children:
   - {fileID: 942462768865947389}
   - {fileID: 5270129710730231424}
+  - {fileID: 4870000812927357437}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5503046788579241531
@@ -260,6 +241,45 @@ MonoBehaviour:
   holdArea: {fileID: 547705875893931947}
   throwStrength: 150
   camera: {fileID: 707074864941013038}
+--- !u!114 &1809348148876385449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737101191737768476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c078ce01af793b4d8cc5f5afb911b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lowerBody: {fileID: 6856820036212425525}
+  upperBody: {fileID: 4265812888656796000}
+  mouseSens: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &6887171956202539909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737101191737768476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4556bc77d23db9344a6fd591e29b06d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 1500
+  jumpForce: 250
+  groundDrag: 5
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
+  cameraHolder: {fileID: 707074864941013038}
+  UpperBody: {fileID: 4265812888656796000}
+  LowerBody: {fileID: 6856820036212425525}
 --- !u!1 &4265812888656796000
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +292,6 @@ GameObject:
   - component: {fileID: 4245022233548154846}
   - component: {fileID: 6456453873270136223}
   - component: {fileID: 8693835359739762415}
-  - component: {fileID: 4800761848744623717}
   m_Layer: 0
   m_Name: UpperBody
   m_TagString: Untagged
@@ -294,7 +313,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6129893975312635462}
-  - {fileID: 4870000812927357437}
   m_Father: {fileID: 7307685370028286903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4245022233548154846
@@ -370,23 +388,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4800761848744623717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4265812888656796000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c078ce01af793b4d8cc5f5afb911b5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lowerBody: {fileID: 6856820036212425525}
-  mouseSens: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &4698710921877739976
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,11 +416,11 @@ Transform:
   m_GameObject: {fileID: 4698710921877739976}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.29999998, y: 1, z: 0.3}
+  m_LocalPosition: {x: -6.0887594, y: -3.0452518, z: -11.219238}
+  m_LocalScale: {x: 0.44999996, y: 1.5000001, z: 0.45000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 942462768865947389}
+  m_Father: {fileID: 7307685370028286903}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &3953868197433172519
 MeshFilter:
@@ -538,8 +539,7 @@ GameObject:
   - component: {fileID: 4972869628892815882}
   - component: {fileID: 2951557918328214309}
   - component: {fileID: 4312819799388798914}
-  - component: {fileID: 4750187727778349122}
-  - component: {fileID: 756815675801739675}
+  - component: {fileID: 6980816960655965249}
   m_Layer: 0
   m_Name: LowerBody
   m_TagString: Untagged
@@ -660,7 +660,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4750187727778349122
+--- !u!114 &6980816960655965249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -673,23 +673,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useGrav: 1
---- !u!114 &756815675801739675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6856820036212425525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4556bc77d23db9344a6fd591e29b06d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementSpeed: 1500
-  jumpForce: 250
-  groundDrag: 5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 8
-  cameraHolder: {fileID: 707074864941013038}
-  UpperBody: {fileID: 4265812888656796000}
