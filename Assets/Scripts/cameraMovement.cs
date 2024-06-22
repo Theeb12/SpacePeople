@@ -8,11 +8,7 @@ public class cameraMovement : NetworkBehaviour
     public float mouseSens = 2.0f;
     float inY;
     public float movementSpeed = 10f;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         Cursor.lockState = CursorLockMode.Locked;
     }
 
