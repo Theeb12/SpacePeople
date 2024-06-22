@@ -23,6 +23,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         clientButton.onClick.AddListener(() => {
+            //client button
             joinCodeInputField.gameObject.SetActive(true);
             joinCodeInputField.Select();
             joinCodeInputField.ActivateInputField();
@@ -30,6 +31,20 @@ public class NewBehaviourScript : MonoBehaviour
             joinCodeButton.gameObject.SetActive(true);
             clientButton.gameObject.SetActive(false);
 
+            // add a listener for when you press enter
+            joinCodeInputField.onEndEdit.AddListener(async (string value) => {
+                await UnityServices.InitializeAsync();
+                if (!AuthenticationService.Instance.IsSignedIn){
+                    await AuthenticationService.Instance.SignInAnonymouslyAsync();
+                }
+
+                var joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode: value);
+                NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+                NetworkManager.Singleton.StartClient();
+                joinCodeButton.gameObject.SetActive(false);
+                joinCodeInputField.gameObject.SetActive(false);
+            });
+            // listener if you click the button
             joinCodeButton.onClick.AddListener(async () => {
                 await UnityServices.InitializeAsync();
                 if (!AuthenticationService.Instance.IsSignedIn){
@@ -43,8 +58,8 @@ public class NewBehaviourScript : MonoBehaviour
                 joinCodeInputField.gameObject.SetActive(false);
             });
         });
-        hostButton.onClick.AddListener(async () =>
-        {
+        hostButton.onClick.AddListener(async () => {
+            // host button
             await UnityServices.InitializeAsync();
             if (!AuthenticationService.Instance.IsSignedIn) {
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
