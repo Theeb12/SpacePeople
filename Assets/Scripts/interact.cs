@@ -26,12 +26,13 @@ public class interact : MonoBehaviour
                 hit.transform.gameObject.GetComponent<airlockDoor>().state *= -1;
             }
         }
-        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, button))
         {
             if (Input.GetKeyDown("e"))
             {
-                if (hit.transform.gameObject.name == "EjectButton")
-                {
+                Debug.Log(hit.transform.gameObject.name);
+                if (hit.transform.gameObject.name == "EjectButton"){
+                    Debug.Log("hi");
                     hit.transform.gameObject.GetComponent<eject>().state = 1;
                 }
             }
