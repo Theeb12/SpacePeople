@@ -1,28 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class interact : MonoBehaviour{
+public class interact : NetworkBehaviour{
     float pickupDist = 5.0f;
     public LayerMask pickUp;
     public LayerMask door;
     public LayerMask button;
+
+    [SerializeField] GameObject MainCamera;
+
     void Update(){
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, door)){
+        if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, pickupDist, door)){
             if (Input.GetKeyDown("e")) {
-                hit.transform.gameObject.GetComponent<airlockDoor>().doorClosing ^= true;
+                ToggleDoorServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
             }
         }
-        if (Physics.Raycast(transform.position, transform.forward, out hit, pickupDist, button)){
-            if (Input.GetKeyDown("e"))
-            {
-                Debug.Log(hit.transform.gameObject.name);
-                if (hit.transform.gameObject.name == "EjectButton"){
-                    Debug.Log("hi");
-                    hit.transform.gameObject.GetComponent<eject>().state = 1;
-                }
+        if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, pickupDist, button)){
+            if (Input.GetKeyDown("e")){
+                EjectButtonServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
             }
         }
+    }
+
+    [ServerRpc]
+    private void ToggleDoorServerRpc(ulong targetObjectID){
+        NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
+        targetObject.GetComponent<airlockDoor>().doorClosing ^= true;
+    }
+
+    [ServerRpc]
+    private void EjectButtonServerRpc(ulong targetObjectID){
+        NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
+        targetObject.GetComponent<eject>().state = 1;
     }
 }
