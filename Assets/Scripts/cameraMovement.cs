@@ -8,6 +8,7 @@ public class cameraMovement : NetworkBehaviour
     public float mouseSens = 2.0f;
     float inY;
     public float movementSpeed = 10f;
+    float inX;
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -18,7 +19,8 @@ public class cameraMovement : NetworkBehaviour
         inY += Input.GetAxis("Mouse Y") * mouseSens; // * mouseSens * Time.deltaTime;
         inY = Mathf.Clamp(inY, -90, 90);
 
-        transform.localRotation = Quaternion.Euler(-inY, 0, 0);
+        transform.localRotation = Quaternion.Euler(-inY, -inX, 0);
+        //transform.localRotation = Quaternion.Euler
 
     }
 }

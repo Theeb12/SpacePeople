@@ -11,6 +11,7 @@ public class interact : NetworkBehaviour{
 
     [SerializeField] GameObject MainCamera;
 
+
     void Update(){
         RaycastHit hit;
         if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, pickupDist, door)){
@@ -20,7 +21,7 @@ public class interact : NetworkBehaviour{
         }
         if (Physics.Raycast(MainCamera.transform.position, MainCamera.transform.forward, out hit, pickupDist, button)){
             if (Input.GetKeyDown("e")){
-                EjectButtonServerRpc(hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
+                EjectButtonServerRpc();
             }
         }
     }
@@ -32,8 +33,7 @@ public class interact : NetworkBehaviour{
     }
 
     [ServerRpc]
-    private void EjectButtonServerRpc(ulong targetObjectID){
-        NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
-        targetObject.GetComponent<eject>().state = 1;
+    private void EjectButtonServerRpc(){
+        GameObject.Find("EjectButton").GetComponent<eject>().state = 1;
     }
 }

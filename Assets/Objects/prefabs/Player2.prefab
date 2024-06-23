@@ -149,11 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fe1caaac5bd687459aae365cc975bfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSens: 2
-  movementSpeed: 3000
-  jumpForce: 500
-  groundDrag: 5
-  whatIsGround:
+  groundMask:
     serializedVersion: 2
     m_Bits: 8
   cameraHolder: {fileID: 8404357919519796282}
@@ -227,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6e8a5971657cfe4e9dc6df5b2e69144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useGrav: 1
+  useGrav: 0
 --- !u!114 &382680765698858014
 MonoBehaviour:
   m_ObjectHideFlags: 0
