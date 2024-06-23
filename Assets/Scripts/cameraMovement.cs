@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class cameraMovement : NetworkBehaviour 
 {
@@ -14,13 +15,12 @@ public class cameraMovement : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        inY += Input.GetAxis("Mouse Y") * mouseSens; // * mouseSens * Time.deltaTime;
+    void Update() {
+        inY += Input.GetAxis("Mouse Y") * mouseSens;
         inY = Mathf.Clamp(inY, -90, 90);
-
-        transform.localRotation = Quaternion.Euler(-inY, -inX, 0);
-        //transform.localRotation = Quaternion.Euler
+        // inX += Input.GetAxis("Mouse X") * mouseSens;
+        // transform.localRotation = Quaternion.Euler(-inY, inX-transform.parent.rotation.eulerAngles.y, 0);
+        transform.localRotation = Quaternion.Euler(-inY, 0, 0);
 
     }
 }

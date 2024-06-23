@@ -46,7 +46,7 @@ public class PlayerMovement : NetworkBehaviour {
         bool groundDetected = false;
         RaycastHit ground = new RaycastHit();
         foreach (var direction in GetSphereDirections(1000)){
-            //Debug.DrawRay(transform.position, direction*5f, Color.blue);
+            Debug.DrawRay(transform.position, direction*5f, Color.blue);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, 3f, groundMask)){
                 if (hit.distance < minDistance){
