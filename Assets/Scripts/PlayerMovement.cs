@@ -7,7 +7,7 @@ public class PlayerMovement : NetworkBehaviour {
     float mouseSens = 2f;
     float inX;
     Rigidbody rb;
-    float movementSpeed = 50;
+    float movementSpeed = 25;
     float jumpForce = 500;
     float h;
     float v;
@@ -16,7 +16,8 @@ public class PlayerMovement : NetworkBehaviour {
 
     public GameObject cameraHolder;
 
-    // Start is called before the first frame update
+    bool jumping = false;
+
     void Start() {
         if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
@@ -47,7 +48,7 @@ public class PlayerMovement : NetworkBehaviour {
         foreach (var direction in GetSphereDirections(1000)){
             //Debug.DrawRay(transform.position, direction*5f, Color.blue);
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, direction, out hit, 5f, groundMask)){
+            if (Physics.Raycast(transform.position, direction, out hit, 3f, groundMask)){
                 if (hit.distance < minDistance){
                     groundDetected = true;
                     minDistance = hit.distance;
@@ -78,7 +79,7 @@ public class PlayerMovement : NetworkBehaviour {
             To prevent player from hitting the ground and creating a jerky motion, hover the 
             player using a damp spring calculation.
         */
-        if (groundDetected) {
+        if (groundDetected && !jumping) {
             // constants for tuning
             float dampFactor = 1;
             float dampFrequency = 30;
@@ -108,22 +109,26 @@ public class PlayerMovement : NetworkBehaviour {
         Technically we should move the player in a perpendicular direction to the detected ground
         but this seems to work fine for now. Limit velocity to max speed
         */
-        if (groundDetected) {
-            Vector3 moveDirection = (transform.forward * v + transform.right * h).normalized;
-            Vector3 maxVelocity = moveDirection * movementSpeed;
-            Vector3 acceleration = (maxVelocity - rb.velocity)/ .1f; // reduce force if we are close to max speed
-            rb.AddForce(acceleration, ForceMode.Force);
-        }
+        Vector3 moveDirection = (transform.forward * v + transform.right * h).normalized;
+        Vector3 maxVelocity = moveDirection * movementSpeed;
+        Vector3 acceleration = (maxVelocity - rb.velocity)/ .1f; // reduce force if we are close to max speed
+        rb.AddForce(acceleration, ForceMode.Force);
 
         // jump
-        if (Input.GetKey("space") && groundDetected) {
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        if (Input.GetKey("space") && groundDetected && !jumping) {
+            jumping = true;
+            rb.AddForce(ground.normal * jumpForce, ForceMode.Impulse);
+            Invoke("endJump", .5f);
         }
 
         // slow down if we're not pressing anything
-        if (h == 0 && v == 0) {
+        if (h == 0 && v == 0 && groundDetected) {
             rb.velocity /= 1.2f;
         }        
+    }
+
+    void endJump() {
+        jumping = false;
     }
     private Vector3[] GetSphereDirections(int numDirections) {
         var pts = new Vector3[numDirections];

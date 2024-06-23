@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class pickup : NetworkBehaviour{
@@ -52,7 +50,7 @@ public class pickup : NetworkBehaviour{
     private void PickupObjectServerRpc(ulong playerID, ulong targetObjectID) {
         NetworkObject targetObject = NetworkManager.SpawnManager.SpawnedObjects[targetObjectID];
         NetworkObject player = NetworkManager.SpawnManager.SpawnedObjects[playerID];
-        targetObject.TrySetParent(player);
+        targetObject.transform.parent = player.transform;
     }
 
     [ServerRpc]

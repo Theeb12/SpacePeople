@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.Netcode.Components;
 using UnityEngine;
 
-public class FollowHand : MonoBehaviour{
+public class Pickupable : MonoBehaviour{
     Transform prevParent = null;
     // Update is called once per frame
     void Update(){
@@ -13,8 +13,8 @@ public class FollowHand : MonoBehaviour{
             transform.GetComponent<NetworkTransform>().enabled = transform.parent == null;
         }
         if (transform.parent != null) {
-            transform.position = transform.parent.Find("UpperBody").Find("Main Camera").Find("pickupArea").position;
-            transform.rotation = transform.parent.Find("UpperBody").Find("Main Camera").Find("pickupArea").rotation;
+            transform.position = transform.parent.Find("Main Camera").Find("pickupArea").position;
+            transform.rotation = transform.parent.Find("Main Camera").Find("pickupArea").rotation;
         }
         prevParent = transform.parent;
     }
