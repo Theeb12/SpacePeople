@@ -47,7 +47,7 @@ public class PlayerMovement : NetworkBehaviour {
         bool groundDetected = false;
         RaycastHit ground = new RaycastHit();
         foreach (var direction in GetSphereDirections(1000)){
-            Debug.DrawRay(transform.position, direction*5f, Color.blue);
+            // Debug.DrawRay(transform.position, direction*5f, Color.blue);
             RaycastHit hit;
             if (Physics.Raycast(transform.position, direction, out hit, 3f, groundMask)){
                 if (hit.distance < minDistance){
@@ -58,7 +58,7 @@ public class PlayerMovement : NetworkBehaviour {
             }
         }
         // draw ground detection
-        Debug.DrawRay(transform.position, -ground.normal * 5f, Color.blue);
+        // Debug.DrawRay(transform.position, -ground.normal * 5f, Color.blue);
 
 
         /* Rotation Force
@@ -101,7 +101,6 @@ public class PlayerMovement : NetworkBehaviour {
             float damp = relativeVelocity * dampStrength;
             float magnitude = tension - damp;
             Vector3 springForce = forceDirection * magnitude;
-            Debug.DrawRay(transform.position, springForce, Color.green);
             rb.AddForce(springForce);
         }
 

@@ -11,7 +11,6 @@ public class airLockInterior : NetworkBehaviour{
             if (col.gameObject.CompareTag("Player")){
                 EjectPlayerClientRpc(col.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
             } else {
-                Debug.Log("ejecting " + col.gameObject.name);
                 col.gameObject.GetComponent<gravity>().useGrav = false;
                 col.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * ejectStrength * col.gameObject.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
             }
@@ -21,9 +20,6 @@ public class airLockInterior : NetworkBehaviour{
     [ClientRpc]
     public void EjectPlayerClientRpc(ulong playerObjectID){
         NetworkObject player = NetworkManager.Singleton.SpawnManager.SpawnedObjects[playerObjectID];
-        Debug.Log(playerObjectID);
-        Debug.Log(NetworkManager.Singleton.LocalClientId);
-        Debug.Log("ejecting player");
         player.gameObject.GetComponent<gravity>().useGrav = false;
         player.gameObject.GetComponent<Rigidbody>().AddForce(transform.right * ejectStrength * player.gameObject.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
     }
