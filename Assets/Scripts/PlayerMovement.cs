@@ -22,6 +22,7 @@ public class PlayerMovement : NetworkBehaviour {
         if (!IsOwner) return;
         rb = GetComponent<Rigidbody>();
         cameraHolder.SetActive(true);
+        transform.position = new Vector3(0, -28, 0);
     }
 
     void Update() {
@@ -72,7 +73,7 @@ public class PlayerMovement : NetworkBehaviour {
             rotationAxis.Normalize();
             float rotationRadians = rotationDegrees * Mathf.Deg2Rad;
             // first constant is force, second is damping
-            rb.AddTorque(rotationAxis * rotationRadians * rb.mass * 60 - (rb.angularVelocity * 90f)); 
+            rb.AddTorque(rotationAxis * rotationRadians * rb.mass * 120 - (rb.angularVelocity * 180)); 
         }
         
         /* Hover Force
@@ -111,7 +112,7 @@ public class PlayerMovement : NetworkBehaviour {
         */
         Vector3 moveDirection = (transform.forward * v + transform.right * h).normalized;
         Vector3 maxVelocity = moveDirection * movementSpeed;
-        Vector3 acceleration = (maxVelocity - rb.velocity)/ .1f; // reduce force if we are close to max speed
+        Vector3 acceleration = (maxVelocity - rb.velocity)/ .1f; 
         rb.AddForce(acceleration, ForceMode.Force);
 
         // jump
@@ -123,7 +124,7 @@ public class PlayerMovement : NetworkBehaviour {
 
         // slow down if we're not pressing anything
         if (h == 0 && v == 0 && groundDetected) {
-            rb.velocity /= 1.2f;
+            rb.velocity /= 1.5f;
         }        
     }
 

@@ -12,7 +12,7 @@ public class pickup : NetworkBehaviour{
     [SerializeField] Transform holdArea;
     public float throwStrength;
 
-    [SerializeField] GameObject camera;
+    [SerializeField] GameObject playerCamera;
 
     ulong targetObjectID;
     bool isKeyReleased = true;
@@ -22,7 +22,7 @@ public class pickup : NetworkBehaviour{
     void Update() {
         if(!IsOwner) return;
         RaycastHit hit;
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, pickupDist, pickUp)) {
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, pickupDist, pickUp)) {
             if (Input.GetKeyDown("e") && !isHolding) {
                 targetObjectID = hit.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
                 PickupObjectServerRpc(this.NetworkObjectId, targetObjectID);
@@ -38,7 +38,7 @@ public class pickup : NetworkBehaviour{
         if (Input.GetKeyUp("e")) {
             isKeyReleased = true;
             if (isHolding && isThrowing) {
-                ThrowObjectServerRpc(targetObjectID, camera.transform.forward * throwStrength * throwTimer);
+                ThrowObjectServerRpc(targetObjectID, playerCamera.transform.forward * throwStrength * throwTimer);
                 isHolding = false;
                 isThrowing = false;
                 throwTimer = 0;

@@ -8,7 +8,7 @@ public class UpperBodyMovement : NetworkBehaviour
     [SerializeField] GameObject lowerBody;
     [SerializeField] GameObject upperBody;
     float movSpeed = 30;
-    float rotSpeed = 100;
+    // float rotSpeed = 100;
     public float mouseSens;
     float h;
     float inX;
