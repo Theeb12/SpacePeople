@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     [SerializeField] float maxDist = 400;
     GameObject[] spawnPoints;
     void Start()
     {
+        // get all possible spawn locations
         spawnPoints = GameObject.FindGameObjectsWithTag("spawnPoint");
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // teleport player to spawn room if distance from center exceeds maxDist and the respawn points are empty
+
         if(Vector3.Distance(Vector3.zero, transform.position) > maxDist)
         {
-            //Debug.Log("doing the thing");
             foreach (GameObject i in spawnPoints)
             {
                 if (i.GetComponent<PlayerSpawner>().isEmpty)
